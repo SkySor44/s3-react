@@ -1,4 +1,4 @@
-require('dotenv').config({path: './.dev.env'})
+require('dotenv').config({path: './.env.development.local'})
 const express = require('express')
     , cors = require('cors')
     , bodyParser = require('body-parser')

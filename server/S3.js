@@ -5,15 +5,22 @@ require('dotenv').config({
 const AWS = require('aws-sdk')
 
 AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESSKEY,
-    secretAccessKey: process.env.AWS_SECRETKEY,
+    accessKeyId: process.env.AWS_ACCESS,
+    secretAccessKey: process.env.AWS_SECRET,
     region: process.env.AWS_REGION
 })
 
 const S3 = new AWS.S3()
 
 function uploadPhoto(req, res) {
-    console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    // console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    /*
+        req.body = {
+            file: (base64 encoded image),
+            filename: (whatever the photo is called from the user),
+            filetype: (file extension, eg. .png)
+        }
+    */
     let photo = req.body,
         buf = new Buffer(photo.file.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
         params = {
@@ -29,8 +36,9 @@ function uploadPhoto(req, res) {
     S3.upload(params, (err, data) => {
         console.log(err, data)
         let response, code
-        err ? (resopnse = err, code = 500) : (response = data, code = 200)
+        err ? (response = err, code = 500) : (response = data, code = 200)
         res.status(code).send(response)
+        console.log('S3 response', data)
     })
 }
 
