@@ -20,6 +20,8 @@ Then, create a bucket: You have to choose "Products", and under "Storage" pick S
 
 Click "Create Bucket", give it a name (that will be the bucket name in your .env file), and pick a region.
 
+MAKE SURE THAT THE BUCKET HAS PUBLIC ACCESS - READ ONLY. They should have "Read bucket permissions" for Everyone.
+
 The region in your .env file will actually be a code found [here](http://docs.aws.amazon.com/general/latest/gr/rande.html)- the name of your region is in the first column, and the code that goes into your .env file as the region should be the corresponding entry of the second column.
 
 Good luck!
