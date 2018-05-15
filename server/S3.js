@@ -1,6 +1,4 @@
-require('dotenv').config({
-    path: '../.dev.env'
-})
+require('dotenv').config()
 
 const AWS = require('aws-sdk')
 
@@ -13,7 +11,7 @@ AWS.config.update({
 const S3 = new AWS.S3()
 
 function uploadPhoto(req, res) {
-    // console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
     /*
         req.body = {
             file: (base64 encoded image),
@@ -35,13 +33,12 @@ function uploadPhoto(req, res) {
 
     S3.upload(params, (err, data) => {
         console.log(err, data)
-        let response, code
-        err ? (response = err, code = 500) : (response = data, code = 200)
-        res.status(code).send(response)
+        err ? res.status(500).send(err) : 
+        res.status(200).send(data)
         console.log('S3 response', data)
     })
 }
 
 module.exports = function (app) {
-    app.post('/api/photoUpload', uploadPhoto)
+    uploadPhoto: uploadPhoto
 }

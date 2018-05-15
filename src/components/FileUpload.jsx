@@ -22,7 +22,7 @@ export default class FileUpload extends Component {
     handlePhoto(event){
         const reader = new FileReader()
             , file = event.target.files[0]
-            // , _this = this
+            , _this = this
         
         reader.onload = photo => {
             this.setState({
@@ -52,7 +52,7 @@ export default class FileUpload extends Component {
                 this.state.file &&
                 <img src={this.state.file} alt="" className="file-preview"/>  
                 }
-                <button onClick={this.sendPhoto}>there needs to be text here according to Andy</button>
+                <button onClick={this.sendPhoto}>Upload</button>
             </div>
         )
     }
